@@ -452,6 +452,12 @@ namespace CutTheRopeDX.GameMain
                 case var id when id == GameControllerButtonId.Pause:
                     {
                         GameScene gameScene4 = (GameScene)view.GetChild(0);
+                        if (!GameControllerInput.CanPauseFromGameplay(
+                            view.GetChild(1).touchable,
+                            gameScene4.outcomeTransitionActive))
+                        {
+                            return;
+                        }
                         tmpDimTime = (int)gameScene4.dimTime;
                         gameScene4.dimTime = 0f;
                         SetPaused(true);
@@ -696,7 +702,10 @@ namespace CutTheRopeDX.GameMain
         public override bool BackButtonPressed()
         {
             View view = GetView(0);
-            if (view.GetChild(1).touchable)
+            GameScene gameScene = (GameScene)view.GetChild(0);
+            if (GameControllerInput.CanPauseFromGameplay(
+                view.GetChild(1).touchable,
+                gameScene.outcomeTransitionActive))
             {
                 OnButtonPressed(GameControllerButtonId.Pause);
             }
@@ -704,7 +713,9 @@ namespace CutTheRopeDX.GameMain
             {
                 OnButtonPressed(GameControllerButtonId.Continue);
             }
-            else if (view.GetChild(4).touchable)
+            else if (GameControllerInput.CanExitResultWithBack(
+                view.GetChild(4).touchable,
+                gameScene.outcomeTransitionActive))
             {
                 OnButtonPressed(GameControllerButtonId.ExitFromWin);
             }
@@ -715,7 +726,10 @@ namespace CutTheRopeDX.GameMain
         public override bool MenuButtonPressed()
         {
             View view = GetView(0);
-            if (view.GetChild(1).touchable)
+            GameScene gameScene = (GameScene)view.GetChild(0);
+            if (GameControllerInput.CanPauseFromGameplay(
+                view.GetChild(1).touchable,
+                gameScene.outcomeTransitionActive))
             {
                 OnButtonPressed(GameControllerButtonId.Pause);
             }
