@@ -32,14 +32,15 @@ namespace CutTheRopeDX.GameMain
         /// </remarks>
         private void UpdateLightEmitterPhysics(float delta)
         {
-            // Integration and whole-body collision for light emitters are now owned by the shared
-            // candy path (the main candy loop in Update() and ResolveCandyCollisions()). Re-stepping
-            // the points here double-integrated them, doubling gravity and causing erratic swinging.
-            // This loop only syncs the bulb's visual/animation to its (already-integrated) point.
+            // Integration, whole-body collision, and the bulb visual's own Update() are all owned by
+            // the shared candy path now: the main candy loop integrates the point and calls
+            // ctx.candy.Update(delta) (ctx.candy IS the bulb), and ResolveCandyCollisions() handles
+            // collision. Re-stepping the point here double-integrated it (erratic swing); calling
+            // Update() here too double-advanced the bulb's animations (bubble/firefly ran ~2x fast).
+            // This loop only syncs capture/sock state from the context onto the bulb visual.
             foreach (CandyContext ctx in LightEmitters())
             {
                 ctx.lightBulb?.SyncFromContext(ctx);
-                ctx.lightBulb?.Update(delta);
             }
 
             // Split candy halves are still legacy singleton points, so they need explicit
