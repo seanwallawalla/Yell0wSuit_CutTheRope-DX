@@ -280,6 +280,10 @@ namespace CutTheRopeDX.GameMain
                                 {
                                     Bungee bungee = new Bungee().InitWithHeadAtXYTailAtTXTYandLength(null, grab.x, grab.y, starL, starL.pos.X, starL.pos.Y, grab.radius + ActivePhysicsConstants.CandyGrabPadding);
                                     bungee.bungeeAnchor.pin = bungee.bungeeAnchor.pos;
+                                    if (grab.cutOnlyByAxe)
+                                    {
+                                        bungee.SetCutOnlyByAxe();
+                                    }
                                     grab.hideRadius = true;
                                     grab.SetRope(bungee);
 
@@ -299,6 +303,10 @@ namespace CutTheRopeDX.GameMain
                                 {
                                     Bungee bungee2 = new Bungee().InitWithHeadAtXYTailAtTXTYandLength(null, grab.x, grab.y, starR, starR.pos.X, starR.pos.Y, grab.radius + ActivePhysicsConstants.CandyGrabPadding);
                                     bungee2.bungeeAnchor.pin = bungee2.bungeeAnchor.pos;
+                                    if (grab.cutOnlyByAxe)
+                                    {
+                                        bungee2.SetCutOnlyByAxe();
+                                    }
                                     grab.hideRadius = true;
                                     grab.SetRope(bungee2);
 
@@ -329,6 +337,10 @@ namespace CutTheRopeDX.GameMain
 
                                     Bungee bungee3 = new Bungee().InitWithHeadAtXYTailAtTXTYandLength(null, grab.x, grab.y, ctx.point, ctx.point.pos.X, ctx.point.pos.Y, grab.radius + ActivePhysicsConstants.CandyGrabPadding);
                                     bungee3.bungeeAnchor.pin = bungee3.bungeeAnchor.pos;
+                                    if (grab.cutOnlyByAxe)
+                                    {
+                                        bungee3.SetCutOnlyByAxe();
+                                    }
                                     grab.hideRadius = true;
                                     grab.SetRope(bungee3);
                                     if (ctx.activeRocket != null)
